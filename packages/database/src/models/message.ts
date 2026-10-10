@@ -4033,9 +4033,7 @@ export class MessageModel {
                   .update(messages)
                   .set({
                     ...message,
-                    ...(metadataToWrite && {
-                      metadata: metadataToWrite,
-                    }),
+                    ...(metadataToWrite && { metadata: metadataToWrite }),
                     ...(usageToWrite && { usage: usageToWrite }),
                   })
                   .where(and(eq(messages.id, id), this.ownership()))
@@ -4269,9 +4267,7 @@ export class MessageModel {
         if (resolution.content !== undefined) {
           const [updatedMessage] = await trx
             .update(messages)
-            .set({
-              content: resolution.content,
-            })
+            .set({ content: resolution.content })
             .where(and(eq(messages.id, resolution.id), this.ownership()))
             .returning({ id: messages.id });
           if (!updatedMessage) throw new Error(`Message not found: ${resolution.id}`);
